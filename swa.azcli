@@ -1,0 +1,81 @@
+############################################################################
+# Created by Karel De Winter
+# Januari 2023
+#
+# Azure Static Web App demo script
+#
+############################################################################
+
+# Variables
+
+private_link=no
+aad_auth=no
+
+unique_id=$RANDOM
+
+rg=rg-cs-swa-${unique_id}
+location=eastus2
+
+
+app_name=app${unique_id}
+logws_name=log${unique_id}
+storage_account_name=storage${unique_id}
+static_web_app_name=swa${unique_id}
+
+container_name=templates
+blob_path='arm_template.json'
+
+# Resource group
+az group create -n $rg -l $location
+
+
+# Create Static Web App
+
+az staticwebapp create -n $static_web_app_name -g $rg -l $location -s https://github.com/kareldewinter/coldstart-swa.git -b main
+
+az staticwebapp show -n $static_web_app_name -g $rg
+
+
+
+# [Optional] Create Log analytics workspace
+az monitor log-analytics workspace create -n $logws_name -g $rg
+logws_id=$(az resource list -g $rg -n $logws_name --query '[].id' -o tsv)
+logws_customerid=$(az monitor log-analytics workspace show -n $logws_name -g $rg --query customerId -o tsv)
+
+
+# Create Storage Account
+az storage account create -n $storage_account_name -g $rg --sku Standard_LRS --kind StorageV2
+az storage container create -n $container_name --account-name $storage_account_name
+storage_account_key=$(az storage account keys list -n $storage_account_name -g $rg --query '[0].value' -o tsv)
+
+
+
+# Create a SAS and download blob to test it
+
+# Calculate dates, get storage key, generate SAS
+expiry=`date -u -d "30 minutes" '+%Y-%m-%dT%H:%MZ'`
+key=$(az storage account keys list -n $storage_account_name --query '[0].value' -o tsv)
+sas=$(az storage container generate-sas --account-name $storage_account_name --account-key $key \
+    -n $container_name --https-only --permissions r --expiry=$expiry -o tsv)
+
+# Retrieve blob URL and download blob
+# az storage blob show -n $blob_path -c $container_name --account-name $storage_account_name --account-key $key
+blob_url=$(az storage blob url -n $blob_path -c $container_name --account-name $storage_account_name --account-key $key -o tsv)
+url=${blob_url}?${sas}
+echo "Downloading from ${url}..."
+wget $url -O /tmp/workspace.json
+
+
+
+
+###############
+#   Cleanup   #
+###############
+
+# Delete selective components
+az container delete -n ${app_name}-${location1} -g $rg -y
+az container delete -n ${app_name}-${location2} -g $rg -y
+
+
+# Delete everything
+az group delete -n $rg -y --no-wait

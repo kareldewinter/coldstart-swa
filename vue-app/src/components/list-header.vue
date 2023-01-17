@@ -36,7 +36,7 @@ export default {
       @click="handleRefresh"
       aria-label="refresh"
     >
-      <i class="fas fa-sync" aria-hidden="true"></i>
+      <i class="fas fa-sync" aria-hidden="true" />
     </button>
   </div>
 </template>

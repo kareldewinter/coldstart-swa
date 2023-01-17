@@ -79,26 +79,24 @@ export default {
 
 <template>
   <div class="content-container">
-    <ListHeader title="Our Favorite" @refresh="getRecommendations" :routePath="routePath">
-    </ListHeader>
+    <ListHeader title="Our Favorite" @refresh="getRecommendations" :routePath="routePath" />
     <div class="columns is-multiline is-variable">
       <div class="column" v-if="recommendations">
         <CatalogList
           :icecreams="recommendations"
           :errorMessage="errorMessage"
           @bought="askToBuy($event)"
-        ></CatalogList>
+        />
       </div>
     </div>
-    <ListHeader :title="title" @refresh="getCatalog" :routePath="routePath">
-    </ListHeader>
+    <ListHeader :title="title" @refresh="getCatalog" :routePath="routePath" />
     <div class="columns is-multiline is-variable">
       <div class="column" v-if="catalog">
         <CatalogList
           :icecreams="catalog"
           :errorMessage="errorMessage"
           @bought="askToBuy($event)"
-        ></CatalogList>
+        />
       </div>
     </div>
 
@@ -108,6 +106,6 @@ export default {
       :isOpen="showModal"
       @handleNo="closeModal"
       @handleYes="buyIcecream($event)"
-    ></Modal>
+    />
   </div>
 </template>

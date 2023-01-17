@@ -44,7 +44,7 @@ export default {
     :data-index="dataIndex"
     :data-id="dataId"
   >
-    <i :class="iconClasses"></i>
+    <i :class="iconClasses" />
     <span>{{ label }}</span>
   </button>
 </template>

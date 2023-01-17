@@ -52,8 +52,8 @@ export default {
         </div>
       </section>
       <footer class="modal-card-foot">
-        <button class="button modal-no" @click="onNo">No</button>
-        <button class="button is-primary modal-yes" @click="onYes">Yes</button>
+        <button class="button modal-no" type="button" @click="onNo">No</button>
+        <button class="button is-primary modal-yes" type="button" @click="onYes">Yes</button>
       </footer>
     </div>
   </div>

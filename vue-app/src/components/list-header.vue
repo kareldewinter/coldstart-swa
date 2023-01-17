@@ -32,6 +32,7 @@ export default {
       <h2 class="title">{{ title }}</h2>
     </router-link>
     <button
+      type="button"
       class="button refresh-button"
       @click="handleRefresh"
       aria-label="refresh"

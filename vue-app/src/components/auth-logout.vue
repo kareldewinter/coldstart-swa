@@ -13,5 +13,5 @@ export default {
 </script>
 
 <template>
-  <div class="auth-link" @click="goAuth">Logout</div>
+  <div class="auth-link" @click="goAuth" @keyup.enter="handleClick" @keyup.space="handleClick">Logout</div>
 </template>

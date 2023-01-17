@@ -19,5 +19,5 @@ export default {
 </script>
 
 <template>
-  <div class="auth-link" @click="goAuth">{{ provider }}</div>
+  <div class="auth-link" @click="goAuth" @keyup.enter="handleClick" @keyup.space="handleClick">{{ provider }}</div>
 </template>

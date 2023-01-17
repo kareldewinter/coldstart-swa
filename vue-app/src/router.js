@@ -1,10 +1,9 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import { createApp } from 'vue';
+import { createRouter, useRouter } from 'vue-router';
+import App from './app.vue';
 import PageNotFound from '@/components/page-not-found.vue';
 
-Vue.use(Router);
-
-export default new Router({
+const router = createRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -23,3 +22,8 @@ export default new Router({
     },
   ],
 });
+export default router;
+const app = createApp(App);
+app.use(useRouter(router));
+app.use(PageNotFound);
+app.mount('#app');

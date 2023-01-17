@@ -20,6 +20,7 @@ export default {
     },
     dataId: {
       type: Number,
+      default: () => null,
     },
     iconClasses: {
       type: String,
@@ -36,6 +37,7 @@ export default {
 
 <template>
   <button
+    type="button"
     class="link card-footer-item"
     :class="className"
     :aria-label="label"

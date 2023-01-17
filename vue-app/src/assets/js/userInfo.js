@@ -11,5 +11,5 @@ async function getUserInfo() {
     return undefined;
   }
 }
-
+/* eslint-disable no-restricted-exports */
 export { getUserInfo as default };

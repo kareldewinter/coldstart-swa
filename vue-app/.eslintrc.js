@@ -12,7 +12,8 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'consistent-return': 0,
     'linebreak-style': 'off',
-    // 'import/no-unresolved': 'off',
+    'import/no-unresolved': 'off',
+    'vue/multi-word-component-names': 'off',
     quotes: [2, 'single', { avoidEscape: true, allowTemplateLiterals: true }],
     // 'prettier/prettier': [
     //   'error',

@@ -32,7 +32,7 @@ export default {
 
     <div class="content">
       <div class="catalog-image">
-        <img v-bind:src="imageurl" />
+        <img v-bind:src="imageurl" alt="A beautiful card" />
       </div>
       <p class="description">{{ description }}</p>
     </div>

@@ -41,10 +41,9 @@ export default {
             <a class="navbar-link">Authentication</a>
             <div class="navbar-dropdown">
               <template v-if="!userInfo">
-                <template v-for="provider in providers">
+                <template v-for="provider in providers" :key="provider">
                   <AuthLogin
                     class="navbar-item auth-link"
-                    :key="provider"
                     :provider="provider"
                   />
                 </template>
